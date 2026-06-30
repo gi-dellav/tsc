@@ -1,6 +1,7 @@
 from sympy import SympifyError, sympify, solve, Eq, simplify
 
 from . import parsers
+from . import integrals
 
 
 class Interpreter:
@@ -32,6 +33,8 @@ class Interpreter:
             return parsers.mathematica(arg)
         elif cmd == "from_latex":
             return parsers.from_latex(arg)
+        elif cmd == "integrate" or cmd == "integral":
+            return integrals.integrate_cmd(arg)
         else:
             return f"Unknown instruction: :{cmd}"
 
