@@ -1,5 +1,8 @@
 from sympy import SympifyError, sympify, solve, Eq, simplify
 
+from . import parsers
+
+
 class Interpreter:
     """Core TSC Interpreter"""
 
@@ -11,11 +14,26 @@ class Interpreter:
         if first_char == "/":
             pass  # TODO Commands for the interactive interface
         elif first_char == ":":
-            pass  # TODO Instructions for the interpreter
+            return self._exec_instruction(expression[1:])
         elif first_char == "$":
             pass  # TODO Memory assignment
         else:
             return self._evaluate_sympy(expression)
+
+    def _exec_instruction(self, instruction: str) -> str:
+        if not instruction.strip():
+            return "Empty instruction."
+        parts = instruction.split(None, 1)
+        cmd = parts[0]
+        arg = parts[1] if len(parts) > 1 else ""
+        if cmd == "maxima":
+            return parsers.maxima(arg)
+        elif cmd == "mathematica":
+            return parsers.mathematica(arg)
+        elif cmd == "from_latex":
+            return parsers.from_latex(arg)
+        else:
+            return f"Unknown instruction: :{cmd}"
 
     def _evaluate_sympy(self, expression: str) -> str:
         try:
