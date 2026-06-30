@@ -1,0 +1,15 @@
+[project]
+name = "tsc"
+version = "0.1.0"
+description = "Textual Symbolic Calculator: open-source minimal alternative to Wolfram Mathematica"
+requires-python = ">=3.10"
+dependencies = ["sympy", "prompt-toolkit"]
+license = { file = "LICENSE" }
+readme = "README.md"
+
+[project.scripts]
+tsc = "tsc.__main__:main"
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
